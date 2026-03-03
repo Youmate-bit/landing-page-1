@@ -1,0 +1,81 @@
+{% extends 'web/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Navbar -->
+<nav class="fixed w-full z-50 glass-nav border-b border-pink-100 py-4 px-6">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <h1 class="text-3xl normal-case italic tracking-tighter">Glow<span class="text-pink-500">.</span></h1>
+        <div class="hidden md:flex space-x-10 text-[10px] uppercase font-bold tracking-[0.2em]">
+            <a href="#transformacion" class="hover:text-pink-600 transition-colors">Portafolio</a>
+            <a href="#contacto" class="bg-gray-900 text-white px-8 py-3 rounded-full hover:bg-pink-700 transition-all">Reserva</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<header class="relative pt-48 pb-24 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+        <div data-aos="fade-right">
+            <h1 class="text-7xl lg:text-9xl mb-10 leading-[0.9]">Revela tu <br><span class="italic text-pink-600">esencia</span></h1>
+            <p class="text-xl text-gray-500 mb-12 max-w-md font-light leading-relaxed">Maquillaje de alta gama para novias y editoriales que buscan un acabado impecable y eterno.</p>
+            <a href="#contacto" class="btn-glossy bg-pink-600 text-white px-12 py-5 rounded-full font-bold shadow-2xl inline-block uppercase text-[10px] tracking-[0.3em]">Agendar Cita</a>
+        </div>
+        <div class="relative" data-aos="fade-left">
+            <img src="/static/img/favicon.ico" class="rounded-[4rem] shadow-2xl h-[500px] lg:h-[700px] w-full object-cover border-[15px] border-white">
+        </div>
+    </div>
+</header>
+
+<!-- Marquee Animado -->
+<div class="marquee-container">
+    <div class="marquee-content">
+        MAQUILLAJE PROFESIONAL • NOVIAS • CURSOS DE AUTOMAQUILLAJE • EDITORIAL • EVENTOS SOCIALES •&nbsp;
+        MAQUILLAJE PROFESIONAL • NOVIAS • CURSOS DE AUTOMAQUILLAJE • EDITORIAL • EVENTOS SOCIALES •&nbsp;
+    </div>
+</div>
+
+<!-- Galería Antes/Después -->
+<section id="transformacion" class="py-32 bg-white">
+    <div class="max-w-5xl mx-auto px-6">
+        <h2 class="text-6xl text-center mb-20 italic">Transformaciones</h2>
+        {% if trabajos %}
+            {% for trabajo in trabajos %}
+            <div class="mb-24 relative w-full h-[450px] md:h-[700px] rounded-[3rem] overflow-hidden shadow-2xl border-[10px] border-white mx-auto select-none">
+                <div class="absolute inset-0 w-full h-full" style="background-image: url('{{ trabajo.foto_despues.url }}'); background-size: cover; background-position: center;"></div>
+                <div id="before-img-{{ trabajo.id }}" class="absolute inset-0 w-1/2 h-full z-10 border-r-4 border-white" style="background-image: url('{{ trabajo.foto_antes.url }}'); background-size: cover; background-position: center;"></div>
+                <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30" oninput="moveSlider(this.value, '{{ trabajo.id }}')">
+                <div id="slider-line-{{ trabajo.id }}" class="absolute inset-y-0 left-1/2 w-1 bg-white z-20 pointer-events-none flex items-center justify-center">
+                    <div class="w-14 h-14 bg-white rounded-full shadow-2xl flex items-center justify-center text-pink-600 font-bold border-4 border-pink-50">↔</div>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</section>
+
+<!-- Contacto -->
+<section id="contacto" class="py-32 bg-stone-900 text-white">
+    <div class="max-w-4xl mx-auto px-6">
+        <div class="bg-white p-16 rounded-[4rem] text-gray-900 shadow-2xl" data-aos="zoom-in">
+            <h2 class="text-5xl mb-10 text-center italic leading-none">¿Hablamos de <br>tu evento?</h2>
+            <form method="POST" class="space-y-8" novalidate>{% csrf_token %}
+                <div class="grid md:grid-cols-2 gap-8 text-[10px] uppercase font-bold tracking-widest text-gray-400">
+                    <div class="space-y-2"><span>Nombre</span>{{ form.nombre }}</div>
+                    <div class="space-y-2"><span>Email</span>{{ form.email }}</div>
+                </div>
+                <div class="space-y-2 text-[10px] uppercase font-bold tracking-widest text-gray-400"><span>Servicio</span>{{ form.interes }}</div>
+                <div class="space-y-2 text-[10px] uppercase font-bold tracking-widest text-gray-400"><span>Mensaje</span>{{ form.mensaje }}</div>
+                <button type="submit" class="w-full bg-pink-600 text-white font-bold py-6 rounded-3xl hover:bg-gray-900 transition-all shadow-xl uppercase tracking-[0.3em] text-xs">Enviar Solicitud</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Botón WhatsApp -->
+<div style="position: fixed; bottom: 40px; right: 40px; z-index: 10000;">
+    <a href="https://wa.me" target="_blank" class="flex items-center justify-center bg-[#25D366] w-[70px] h-[70px] rounded-full shadow-2xl transition-transform hover:scale-110">
+        <svg style="width: 35px; height: 35px; fill: white;" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.025 3.143l-1.088 3.974 4.069-1.068c.813.447 1.835.842 2.761.844h.001c3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.766-5.768-5.766z"/></svg>
+    </a>
+</div>
+{% endblock %}

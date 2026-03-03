@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLOW | Editorial Makeup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <link href="https://unpkg.com" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="bg-stone-50">
+    {% block content %}{% endblock %}
+    <script src="https://unpkg.com"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>AOS.init({ duration: 1200, once: true });</script>
+</body>
+</html>

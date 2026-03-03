@@ -1,0 +1,52 @@
+/* Tipografías y Base */
+html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+h1, h2, h3, .font-serif { font-family: 'Cormorant Garamond', serif; font-weight: 600; letter-spacing: -0.02em; }
+
+/* Efecto de Cristal para Navbar */
+.glass-nav {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+/* Animación Marquee (Texto Infinito) */
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    background: #111827;
+    padding: 20px 0;
+    color: #fdf2f2;
+}
+.marquee-content {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+}
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Botón con Brillo */
+.btn-glossy {
+    position: relative; overflow: hidden;
+}
+.btn-glossy::after {
+    content: ''; position: absolute; top: -50%; left: -100%;
+    width: 50%; height: 200%; background: rgba(255,255,255,0.3);
+    transform: rotate(30deg); animation: shimmer 4s infinite;
+}
+@keyframes shimmer {
+    0% { left: -100%; }
+    20%, 100% { left: 150%; }
+}
+
+/* Slider Antes/Después */
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; height: 60px; width: 60px;
+    background: transparent; cursor: ew-resize;
+}
